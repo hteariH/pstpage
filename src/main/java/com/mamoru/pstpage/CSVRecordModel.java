@@ -19,7 +19,7 @@ public class CSVRecordModel {
     private double Podiumrate;
     private double Pole_Position_Rate;
     private double Fastest_Lap_Rate;
-    private double Sum_Elo_Gain;
+    private int Sum_Elo_Gain;
     private double Sum_SR_Gain;
     private int Sum_IPs;
     private double IP_per_Race;
@@ -107,7 +107,7 @@ public class CSVRecordModel {
     }
 
     public double getAvg_Finishing() {
-        return Avg_Finishing;
+        return truncateDecimal(Avg_Finishing,2);
     }
 
     public void setAvg_Finishing(final double avg_Finishing) {
@@ -115,7 +115,7 @@ public class CSVRecordModel {
     }
 
     public double getAvg_Qualifying() {
-        return Avg_Qualifying;
+        return truncateDecimal(Avg_Qualifying,2);
     }
 
     public void setAvg_Qualifying(final double avg_Qualifying) {
@@ -123,7 +123,7 @@ public class CSVRecordModel {
     }
 
     public double getPoints() {
-        return Points;
+        return truncateDecimal(Points,0);
     }
 
     public void setPoints(final double points) {
@@ -131,7 +131,7 @@ public class CSVRecordModel {
     }
 
     public double getPoints_per_Race() {
-        return Points_per_Race;
+        return truncateDecimal(Points_per_Race,0);
     }
 
     public void setPoints_per_Race(final double points_per_Race) {
@@ -139,7 +139,7 @@ public class CSVRecordModel {
     }
 
     public double getWinrate() {
-        return Winrate;
+        return truncateDecimal(Winrate,2);
     }
 
     public void setWinrate(final double winrate) {
@@ -147,7 +147,7 @@ public class CSVRecordModel {
     }
 
     public double getPodiumrate() {
-        return Podiumrate;
+        return truncateDecimal(Podiumrate,2);
     }
 
     public void setPodiumrate(final double podiumrate) {
@@ -155,7 +155,7 @@ public class CSVRecordModel {
     }
 
     public double getPole_Position_Rate() {
-        return Pole_Position_Rate;
+        return truncateDecimal(Pole_Position_Rate,2);
     }
 
     public void setPole_Position_Rate(final double pole_Position_Rate) {
@@ -163,23 +163,23 @@ public class CSVRecordModel {
     }
 
     public double getFastest_Lap_Rate() {
-        return Fastest_Lap_Rate;
+        return truncateDecimal(Fastest_Lap_Rate,2);
     }
 
     public void setFastest_Lap_Rate(final double fastest_Lap_Rate) {
         Fastest_Lap_Rate = fastest_Lap_Rate;
     }
 
-    public double getSum_Elo_Gain() {
+    public int getSum_Elo_Gain() {
         return Sum_Elo_Gain;
     }
 
-    public void setSum_Elo_Gain(final double sum_Elo_Gain) {
+    public void setSum_Elo_Gain(final int sum_Elo_Gain) {
         Sum_Elo_Gain = sum_Elo_Gain;
     }
 
     public double getSum_SR_Gain() {
-        return Sum_SR_Gain;
+        return truncateDecimal(Sum_SR_Gain,1);
     }
 
     public void setSum_SR_Gain(final double sum_SR_Gain) {
@@ -195,7 +195,7 @@ public class CSVRecordModel {
     }
 
     public double getIP_per_Race() {
-        return IP_per_Race;
+        return truncateDecimal(IP_per_Race,0);
     }
 
     public void setIP_per_Race(final double IP_per_Race) {
@@ -203,7 +203,7 @@ public class CSVRecordModel {
     }
 
     public double getAverage_SOF() {
-        return average_SOF;
+        return truncateDecimal(average_SOF,2);
     }
 
     public void setAverage_SOF(final double average_SOF) {
@@ -217,4 +217,14 @@ public class CSVRecordModel {
     public void setQ_to_R(final String q_to_R) {
         Q_to_R = q_to_R;
     }
+
+    private double truncateDecimal(double value, int places){
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+
 }

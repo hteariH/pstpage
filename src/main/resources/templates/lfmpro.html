@@ -2,56 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>LFM PRO Series stats</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #282b30;
-            margin: 0;
-            padding: 0;
-            color: white;
-        }
-
-        .container {
-            max-width: 1200px;
-            padding: 50px;
-        }
-
-        h1 {
-            text-align: center;
-            color: white;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 0.9em;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        table thead {
-            background-color: #424549;
-            color: #ffffff;
-            cursor: pointer;
-        }
-
-        table th, table td {
-            padding: 12px 10px;
-            text-align: center;
-        }
-
-        table th.sortable:hover {
-            background-color: #007965;
-        }
-
-        table tbody tr:nth-child(even) {
-            background-color: #424549;
-        }
-
-        table tbody tr:hover {
-            background-color: #4a4c51;
-        }
-    </style>
+    <link href="../static/styles.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
@@ -115,26 +66,6 @@
         </tbody>
     </table>
 </div>
-<script>
-    function sortTable(columnIndex) {
-        var table = document.querySelector("table tbody");
-        var rows = Array.from(table.rows);
-        var ascending = table.getAttribute("data-sort-order") !== "asc";
-
-        rows.sort(function (rowA, rowB) {
-            var cellA = rowA.cells.length > columnIndex ? rowA.cells[columnIndex].innerText : '';
-            var cellB = rowB.cells.length > columnIndex ? rowB.cells[columnIndex].innerText : '';
-
-            var numA = parseFloat(cellA) || cellA;
-            var numB = parseFloat(cellB) || cellB;
-
-            return ascending ? numA > numB ? 1 : -1 : numA < numB ? 1 : -1;
-        });
-
-        table.innerHTML = "";
-        rows.forEach(row => table.appendChild(row));
-        table.setAttribute("data-sort-order", ascending ? "asc" : "desc");
-    }
-</script>
+<script src="../static/script.js"></script>
 </body>
 </html>

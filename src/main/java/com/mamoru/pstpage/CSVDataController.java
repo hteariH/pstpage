@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,14 +16,14 @@ import java.util.stream.Collectors;
 
 @Controller
 public class CSVDataController {
-    @GetMapping("/csvdata")
+    @GetMapping("/lfmpro")
     public ModelAndView getCsvData(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname) throws Exception {
         List<CSVRecordModel> data = readCSVFromURL().stream()
                 .filter(record -> vorname == null || record.getVorname().equals(vorname))
                 .filter(record -> nachname == null || record.getNachname().equals(nachname))
                 .collect(Collectors.toList());
 
-        ModelAndView modelAndView = new ModelAndView("lfmPro");
+        ModelAndView modelAndView = new ModelAndView("lfmpro");
         modelAndView.addObject("csvData", data);
 
         return modelAndView;
@@ -34,6 +35,9 @@ public class CSVDataController {
         List<CSVRecordModel> records = new ArrayList<>();
 
         CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().withDelimiter(',').parse(new InputStreamReader(connection.getInputStream()));
+
+
+
         for (CSVRecord record : parser) {
             CSVRecordModel data = new CSVRecordModel();
             data.setVorname(record.get("vorname"));
@@ -54,7 +58,7 @@ public class CSVDataController {
             data.setPodiumrate(Double.parseDouble(record.get("Podiumrate")));
             data.setPole_Position_Rate(Double.parseDouble(record.get("Pole_Position_Rate")));
             data.setFastest_Lap_Rate(Double.parseDouble(record.get("Fastest_Lap_Rate")));
-            data.setSum_Elo_Gain(Double.parseDouble(record.get("Sum_Elo_Gain")));
+            data.setSum_Elo_Gain(Integer.parseInt(record.get("Sum_Elo_Gain")));
             data.setSum_SR_Gain(Double.parseDouble(record.get("Sum_SR_Gain")));
             data.setSum_IPs(Integer.parseInt(record.get("Sum_IPs")));
             data.setIP_per_Race(Double.parseDouble(record.get("IP_per_Race")));
