@@ -6,4 +6,6 @@ pkill -f pstpage.jar
 cp ./target/pstpage-0.0.1-SNAPSHOT.jar /home/admin/deploy/pstpage.jar
 
 #Start the Java application using the new JAR
-nohup java -jar /home/admin/deploy/pstpage.jar > /dev/null 2>&1 &
+
+#nohup java -jar /home/admin/deploy/pstpage.jar > /dev/null 2>&1 &
+java -jar /home/admin/deploy/pstpage.jar
