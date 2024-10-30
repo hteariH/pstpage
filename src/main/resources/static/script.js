@@ -37,3 +37,10 @@ function myFunction() {
         trs[i].style.display = found?"":"none";
     }
 }
+
+document.querySelectorAll("td").forEach(element => {
+    element.addEventListener("click", function() {
+        const redirectUrl = this.getAttribute('data-redirect');
+        window.location.href = redirectUrl;
+    });
+});

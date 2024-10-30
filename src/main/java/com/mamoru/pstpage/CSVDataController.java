@@ -16,9 +16,16 @@ import java.util.stream.Collectors;
 
 @Controller
 public class CSVDataController {
+
+    private final String url ="https://gitlab.com/pst-pepega/pst-scripts/-/raw/main/LFM_Proseries_Data/lfm_proseries_data.csv";
+
     @GetMapping("/")
     public ModelAndView getCsvData(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname) throws Exception {
-        List<CSVRecordModel> data = readCSVFromURL().stream()
+        return getModelAndView(vorname, nachname);
+    }
+
+    private ModelAndView getModelAndView(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname) throws Exception {
+        List<CSVRecordModel> data = readCSVFromURL(url).stream()
                 .filter(record -> vorname == null || record.getVorname().equals(vorname))
                 .filter(record -> nachname == null || record.getNachname().equals(nachname))
                 .collect(Collectors.toList());
@@ -29,8 +36,13 @@ public class CSVDataController {
         return modelAndView;
     }
 
-    public List<CSVRecordModel> readCSVFromURL() throws Exception {
-        URL csvFileUrl = new URL("https://gitlab.com/pst-pepega/pst-scripts/-/raw/main/LFM_Proseries_Data/lfm_proseries_data.csv");
+    @GetMapping("/season")
+    public ModelAndView getCsvDataSeason(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname) throws Exception {
+        return getModelAndView(vorname, nachname);
+    }
+
+    public List<CSVRecordModel> readCSVFromURL(String url) throws Exception {
+        URL csvFileUrl = new URL(url);
         URLConnection connection = csvFileUrl.openConnection();
         List<CSVRecordModel> records = new ArrayList<>();
 

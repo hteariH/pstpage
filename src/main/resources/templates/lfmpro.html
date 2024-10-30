@@ -39,8 +39,8 @@
         </thead>
         <tbody>
         <tr th:each="data : ${csvData}">
-            <td th:text="${data.vorname}"></td>
-            <td th:text="${data.nachname}"></td>
+            <td th:attr="data-redirect=|?vorname=${data.vorname}|" th:text="${data.vorname}"></td>
+            <td th:attr="data-redirect=|?nachname=${data.nachname}|" th:text="${data.nachname}"></td>
             <td th:text="${data.user_id}"></td>
             <td th:text="${data.Races}"></td>
             <td th:text="${data.Wins}"></td>
