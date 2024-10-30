@@ -21,5 +21,8 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml            # This step builds the project with Maven
 
-    - name: Run the app
-      run: mvn spring-boot:run                      # This step runs your Spring Boot application.
+    - name: Deploy
+      run: ./deploy.sh
+#
+#    - name: Run the app
+#      run: mvn spring-boot:run                      # This step runs your Spring Boot application.
