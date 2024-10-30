@@ -22,7 +22,7 @@ public class CSVDataController {
                 .filter(record -> nachname == null || record.getNachname().equals(nachname))
                 .collect(Collectors.toList());
 
-        ModelAndView modelAndView = new ModelAndView("csvData");
+        ModelAndView modelAndView = new ModelAndView("lfmPro");
         modelAndView.addObject("csvData", data);
 
         return modelAndView;
