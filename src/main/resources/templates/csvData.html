@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>LFM PRO Series stats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #282b30;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            padding: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9em;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table thead {
+            background-color: #424549;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        table th, table td {
+            padding: 12px 10px;
+            text-align: center;
+        }
+
+        table th.sortable:hover {
+            background-color: #007965;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #424549;
+        }
+
+        table tbody tr:hover {
+            background-color: #4a4c51;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>LFM Pro Series Stats</h1>
+    <table>
+        <thead>
+        <tr>
+            <th class="sortable" onclick="sortTable(0)">Firstname</th>
+            <th class="sortable" onclick="sortTable(1)">Lastname</th>
+            <th class="sortable" onclick="sortTable(2)">User ID</th>
+            <th class="sortable" onclick="sortTable(3)">Races</th>
+            <th class="sortable" onclick="sortTable(4)">Wins</th>
+            <th class="sortable" onclick="sortTable(5)">Podiums</th>
+            <th class="sortable" onclick="sortTable(6)">Pole Positions</th>
+            <th class="sortable" onclick="sortTable(7)">Fastest Laps</th>
+            <th class="sortable" onclick="sortTable(8)">Top5s</th>
+            <th class="sortable" onclick="sortTable(9)">Top10s</th>
+            <th class="sortable" onclick="sortTable(10)">Average Finishing</th>
+            <th class="sortable" onclick="sortTable(11)">Average Qualifying</th>
+            <th class="sortable" onclick="sortTable(12)">Points</th>
+            <th class="sortable" onclick="sortTable(13)">Points per Race</th>
+            <th class="sortable" onclick="sortTable(14)">Winrate</th>
+            <th class="sortable" onclick="sortTable(15)">Podiumrate</th>
+            <th class="sortable" onclick="sortTable(16)">Pole Position Rate</th>
+            <th class="sortable" onclick="sortTable(17)">Fastest Lap Rate</th>
+            <th class="sortable" onclick="sortTable(18)">Sum Elo Gain</th>
+            <th class="sortable" onclick="sortTable(19)">Sum SR Gain</th>
+            <th class="sortable" onclick="sortTable(20)">Sum IPs</th>
+            <th class="sortable" onclick="sortTable(21)">IP per Race</th>
+            <th class="sortable" onclick="sortTable(22)">Average SOF</th>
+            <th class="sortable" onclick="sortTable(23)">Q to R</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="data : ${csvData}">
+            <td th:text="${data.vorname}"></td>
+            <td th:text="${data.nachname}"></td>
+            <td th:text="${data.user_id}"></td>
+            <td th:text="${data.Races}"></td>
+            <td th:text="${data.Wins}"></td>
+            <td th:text="${data.Podiums}"></td>
+            <td th:text="${data.Pole_Positions}"></td>
+            <td th:text="${data.Fastest_Laps}"></td>
+            <td th:text="${data.Top5s}"></td>
+            <td th:text="${data.Top10s}"></td>
+            <td th:text="${data.Avg_Finishing}"></td>
+            <td th:text="${data.Avg_Qualifying}"></td>
+            <td th:text="${data.Points}"></td>
+            <td th:text="${data.Points_per_Race}"></td>
+            <td th:text="${data.Winrate}"></td>
+            <td th:text="${data.Podiumrate}"></td>
+            <td th:text="${data.Pole_Position_Rate}"></td>
+            <td th:text="${data.Fastest_Lap_Rate}"></td>
+            <td th:text="${data.Sum_Elo_Gain}"></td>
+            <td th:text="${data.Sum_SR_Gain}"></td>
+            <td th:text="${data.Sum_IPs}"></td>
+            <td th:text="${data.IP_per_Race}"></td>
+            <td th:text="${data.average_SOF}"></td>
+            <td th:text="${data.Q_to_R}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    function sortTable(columnIndex) {
+        var table = document.querySelector("table tbody");
+        var rows = Array.from(table.rows);
+        var ascending = table.getAttribute("data-sort-order") !== "asc";
+
+        rows.sort(function (rowA, rowB) {
+            var cellA = rowA.cells.length > columnIndex ? rowA.cells[columnIndex].innerText : '';
+            var cellB = rowB.cells.length > columnIndex ? rowB.cells[columnIndex].innerText : '';
+
+            var numA = parseFloat(cellA) || cellA;
+            var numB = parseFloat(cellB) || cellB;
+
+            return ascending ? numA > numB ? 1 : -1 : numA < numB ? 1 : -1;
+        });
+
+        table.innerHTML = "";
+        rows.forEach(row => table.appendChild(row));
+        table.setAttribute("data-sort-order", ascending ? "asc" : "desc");
+    }
+</script>
+</body>
+</html>
