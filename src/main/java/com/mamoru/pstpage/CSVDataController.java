@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Controller
 public class CSVDataController {
-    @GetMapping("/lfmpro")
+    @GetMapping("/")
     public ModelAndView getCsvData(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname) throws Exception {
         List<CSVRecordModel> data = readCSVFromURL().stream()
                 .filter(record -> vorname == null || record.getVorname().equals(vorname))
