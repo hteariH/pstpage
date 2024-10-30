@@ -21,6 +21,9 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml            # This step builds the project with Maven
 
+    - name: Provide execution rights to deploy.sh
+      run: chmod +x ./deploy.sh
+
     - name: Deploy
       run: ./deploy.sh
 #
