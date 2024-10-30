@@ -63,7 +63,7 @@ public class CSVDataController {
             data.setSum_IPs(Integer.parseInt(record.get("Sum_IPs")));
             data.setIP_per_Race(Double.parseDouble(record.get("IP_per_Race")));
             data.setAverage_SOF(Double.parseDouble(record.get("average_SOF")));
-            data.setQ_to_R(record.get("Q_to_R"));
+            data.setQ_to_R(String.format("%.2f", parseDoubleDefault(record.get("Q_to_R"))));
 
             records.add(data);
         }
