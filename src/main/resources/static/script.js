@@ -28,19 +28,21 @@ function myFunction() {
         let found = false;
         const tds = trs[i].getElementsByTagName("td");
 
-        for(let j = 0; j < tds.length && !found; j++) {
+        for (let j = 0; j < tds.length && !found; j++) {
             if (tds[j].textContent.toUpperCase().indexOf(filter) > -1) {
                 found = true;
                 break;
             }
         }
-        trs[i].style.display = found?"":"none";
+        trs[i].style.display = found ? "" : "none";
     }
 }
 
 document.querySelectorAll("td").forEach(element => {
-    element.addEventListener("click", function() {
-        const redirectUrl = this.getAttribute('data-redirect');
+    element.addEventListener("click", function () {
+        const redirectUrl = this.getAttribute('data-redirect') != null ? this.getAttribute('data-redirect') : "";
+        if (this.getAttribute('data-redirect')==null)
+            return
         window.location.href = redirectUrl;
     });
 });
