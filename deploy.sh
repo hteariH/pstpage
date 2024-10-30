@@ -20,6 +20,10 @@ cp ./target/pstpage-0.0.1-SNAPSHOT.jar /home/admin/deploy/pstpage.jar
 echo "Starting application..."
 nohup java -jar "$APP_JAR" > /dev/null 2>&1 &
 
+#nohup java -jar /home/admin/deploy/pstpage.jar > /dev/null 2>&1 &
 # Write the process id to a file
 echo $! > "$PID_FILE"
+
+disown
+
 echo "Application started with PID: $(cat "$PID_FILE")"
