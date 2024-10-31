@@ -18,6 +18,7 @@ public class CSVDataController {
 
     private final String url ="https://gitlab.com/pst-pepega/pst-scripts/-/raw/main/LFM_Proseries_Data/lfm_proseries_data.csv";
     private final String urlSeason ="https://gitlab.com/pst-pepega/pst-scripts/-/raw/main/lfm_proseries_data/lfm_proseries_data_pro-series-s16.csv";
+    private final String urlSeasonF ="https://gitlab.com/pst-pepega/pst-scripts/-/raw/main/lfm_proseries_data/lfm_proseries_data_pro-series-s%s.csv";
 
     @GetMapping("/")
     public ModelAndView getCsvData(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname) throws Exception {
@@ -34,6 +35,11 @@ public class CSVDataController {
         modelAndView.addObject("csvData", data);
 
         return modelAndView;
+    }
+
+    @GetMapping("/season/{seasonNumber}")
+    public ModelAndView getCsvDataSpecifiedSeason(@PathVariable String seasonNumber, @RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname) throws Exception {
+        return getModelAndView(vorname, nachname, String.format(urlSeasonF,seasonNumber));
     }
 
     @GetMapping("/season")

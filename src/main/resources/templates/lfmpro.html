@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>LFM PRO Series stats</title>
-    <link href="styles.css" rel="stylesheet"/>
+    <link href="/styles.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-    <h1><a href="/"> LFM Pro Series Stats</a></h1>
+    <h1 onclick="removeParamsFromLink()"> <a>LFM Pro Series Stats</a></h1>
     <table>
         <thead>
         <tr>
@@ -67,6 +67,6 @@
         </tbody>
     </table>
 </div>
-<script src="script.js"></script>
+<script src="/script.js"></script>
 </body>
 </html>

@@ -38,6 +38,15 @@ function myFunction() {
     }
 }
 
+function removeParamsFromLink() {
+    var url = window.location.href;
+    if (url.indexOf('?') > -1) {
+        var paramsStart = url.indexOf('?');
+        url = url.substring(0, paramsStart);
+    }
+    window.location.href = url;
+}
+
 document.querySelectorAll("td").forEach(element => {
     element.addEventListener("click", function () {
         const redirectUrl = this.getAttribute('data-redirect') != null ? this.getAttribute('data-redirect') : "";
