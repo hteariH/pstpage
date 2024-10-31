@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,13 +17,14 @@ import java.util.stream.Collectors;
 public class CSVDataController {
 
     private final String url ="https://gitlab.com/pst-pepega/pst-scripts/-/raw/main/LFM_Proseries_Data/lfm_proseries_data.csv";
+    private final String urlSeason ="https://gitlab.com/pst-pepega/pst-scripts/-/raw/main/lfm_proseries_data/lfm_proseries_data_pro-series-s16.csv";
 
     @GetMapping("/")
     public ModelAndView getCsvData(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname) throws Exception {
-        return getModelAndView(vorname, nachname);
+        return getModelAndView(vorname, nachname, url);
     }
 
-    private ModelAndView getModelAndView(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname) throws Exception {
+    private ModelAndView getModelAndView(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname, String url) throws Exception {
         List<CSVRecordModel> data = readCSVFromURL(url).stream()
                 .filter(record -> vorname == null || record.getVorname().equals(vorname))
                 .filter(record -> nachname == null || record.getNachname().equals(nachname))
@@ -38,7 +38,7 @@ public class CSVDataController {
 
     @GetMapping("/season")
     public ModelAndView getCsvDataSeason(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname) throws Exception {
-        return getModelAndView(vorname, nachname);
+        return getModelAndView(vorname, nachname, urlSeason);
     }
 
     public List<CSVRecordModel> readCSVFromURL(String url) throws Exception {
