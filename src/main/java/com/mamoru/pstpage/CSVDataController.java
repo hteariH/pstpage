@@ -21,14 +21,15 @@ public class CSVDataController {
     private final String urlSeasonF ="https://gitlab.com/pst-pepega/pst-scripts/-/raw/main/lfm_proseries_data/lfm_proseries_data_pro-series-s%s.csv";
 
     @GetMapping("/")
-    public ModelAndView getCsvData(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname) throws Exception {
-        return getModelAndView(vorname, nachname, url);
+    public ModelAndView getCsvData(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname, @RequestParam(required = false) String user_id) throws Exception {
+        return getModelAndView(vorname, nachname, user_id, url);
     }
 
-    private ModelAndView getModelAndView(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname, String url) throws Exception {
+    private ModelAndView getModelAndView(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname ,@RequestParam(required = false) String user_id, String url) throws Exception {
         List<CSVRecordModel> data = readCSVFromURL(url).stream()
                 .filter(record -> vorname == null || record.getVorname().equals(vorname))
                 .filter(record -> nachname == null || record.getNachname().equals(nachname))
+                .filter(record -> user_id == null || record.getUser_id().equals(user_id))
                 .collect(Collectors.toList());
 
         ModelAndView modelAndView = new ModelAndView("lfmpro");
@@ -38,13 +39,13 @@ public class CSVDataController {
     }
 
     @GetMapping("/season/{seasonNumber}")
-    public ModelAndView getCsvDataSpecifiedSeason(@PathVariable String seasonNumber, @RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname) throws Exception {
-        return getModelAndView(vorname, nachname, String.format(urlSeasonF,seasonNumber));
+    public ModelAndView getCsvDataSpecifiedSeason(@PathVariable String seasonNumber, @RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname, @RequestParam(required = false) String user_id) throws Exception {
+        return getModelAndView(vorname, nachname, user_id, String.format(urlSeasonF,seasonNumber));
     }
 
     @GetMapping("/season")
-    public ModelAndView getCsvDataSeason(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname) throws Exception {
-        return getModelAndView(vorname, nachname, urlSeason);
+    public ModelAndView getCsvDataSeason(@RequestParam(required = false) String vorname, @RequestParam(required = false) String nachname, @RequestParam(required = false) String user_id) throws Exception {
+        return getModelAndView(vorname, nachname,user_id, urlSeason);
     }
 
     public List<CSVRecordModel> readCSVFromURL(String url) throws Exception {

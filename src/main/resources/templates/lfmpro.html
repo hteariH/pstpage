@@ -6,66 +6,74 @@
 </head>
 <body>
 <div class="container">
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-    <h1 onclick="removeParamsFromLink()"> <a>LFM Pro Series Stats</a></h1>
-    <table>
-        <thead>
-        <tr>
-            <th class="sortable" onclick="sortTable(0)">Firstname</th>
-            <th class="sortable" onclick="sortTable(1)">Lastname</th>
-            <th class="sortable" onclick="sortTable(2)">User ID</th>
-            <th class="sortable" onclick="sortTable(3)">Races</th>
-            <th class="sortable" onclick="sortTable(4)">Wins</th>
-            <th class="sortable" onclick="sortTable(5)">Podiums</th>
-            <th class="sortable" onclick="sortTable(6)">Pole Positions</th>
-            <th class="sortable" onclick="sortTable(7)">Fastest Laps</th>
-            <th class="sortable" onclick="sortTable(8)">Top5s</th>
-            <th class="sortable" onclick="sortTable(9)">Top10s</th>
-            <th class="sortable" onclick="sortTable(10)">Average Finishing</th>
-            <th class="sortable" onclick="sortTable(11)">Average Qualifying</th>
-            <th class="sortable" onclick="sortTable(12)">Points</th>
-            <th class="sortable" onclick="sortTable(13)">Points per Race</th>
-            <th class="sortable" onclick="sortTable(14)">Winrate</th>
-            <th class="sortable" onclick="sortTable(15)">Podiumrate</th>
-            <th class="sortable" onclick="sortTable(16)">Pole Position Rate</th>
-            <th class="sortable" onclick="sortTable(17)">Fastest Lap Rate</th>
-            <th class="sortable" onclick="sortTable(18)">Sum Elo Gain</th>
-            <th class="sortable" onclick="sortTable(19)">Sum SR Gain</th>
-            <th class="sortable" onclick="sortTable(20)">Sum IPs</th>
-            <th class="sortable" onclick="sortTable(21)">IP per Race</th>
-            <th class="sortable" onclick="sortTable(22)">Average SOF</th>
-            <th class="sortable" onclick="sortTable(23)">Q to R</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="data : ${csvData}">
-            <td th:attr="data-redirect=|?vorname=${data.vorname}|" th:text="${data.vorname}"></td>
-            <td th:attr="data-redirect=|?nachname=${data.nachname}|" th:text="${data.nachname}"></td>
-            <td th:text="${data.user_id}"></td>
-            <td th:text="${data.Races}"></td>
-            <td th:text="${data.Wins}"></td>
-            <td th:text="${data.Podiums}"></td>
-            <td th:text="${data.Pole_Positions}"></td>
-            <td th:text="${data.Fastest_Laps}"></td>
-            <td th:text="${data.Top5s}"></td>
-            <td th:text="${data.Top10s}"></td>
-            <td th:text="${data.Avg_Finishing}"></td>
-            <td th:text="${data.Avg_Qualifying}"></td>
-            <td th:text="${data.Points}"></td>
-            <td th:text="${data.Points_per_Race}"></td>
-            <td th:text="${data.Winrate}"></td>
-            <td th:text="${data.Podiumrate}"></td>
-            <td th:text="${data.Pole_Position_Rate}"></td>
-            <td th:text="${data.Fastest_Lap_Rate}"></td>
-            <td th:text="${data.Sum_Elo_Gain}"></td>
-            <td th:text="${data.Sum_SR_Gain}"></td>
-            <td th:text="${data.Sum_IPs}"></td>
-            <td th:text="${data.IP_per_Race}"></td>
-            <td th:text="${data.average_SOF}"></td>
-            <td th:text="${data.Q_to_R}"></td>
-        </tr>
-        </tbody>
-    </table>
+
+    <h1 onclick="removeParamsFromLink()"><a>LFM Pro Series Stats</a></h1>
+    <div class="input-wrapper">
+
+    </div>
+    <div class="table-wrapper">
+        <table id="dataTable">
+            <thead>
+            <tr class="page-search-header">
+                <th colspan="3"><input type="text" class="discord-input" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"></th>
+            </tr>
+            <tr>
+                <th class="sortable" onclick="sortTable(0)">Firstname</th>
+                <th class="sortable" onclick="sortTable(1)">Lastname</th>
+                <th class="sortable" onclick="sortTable(2)">User ID</th>
+                <th class="sortable" onclick="sortTable(3)">Races</th>
+                <th class="sortable" onclick="sortTable(4)">Wins</th>
+                <th class="sortable" onclick="sortTable(5)">Podiums</th>
+                <th class="sortable" onclick="sortTable(6)">Pole Positions</th>
+                <th class="sortable" onclick="sortTable(7)">Fastest Laps</th>
+                <th class="sortable" onclick="sortTable(8)">Top5s</th>
+                <th class="sortable" onclick="sortTable(9)">Top10s</th>
+                <th class="sortable" onclick="sortTable(10)">Average Finishing</th>
+                <th class="sortable" onclick="sortTable(11)">Average Qualifying</th>
+                <th class="sortable" onclick="sortTable(12)">Points</th>
+                <th class="sortable" onclick="sortTable(13)">Points per Race</th>
+                <th class="sortable" onclick="sortTable(14)">Winrate</th>
+                <th class="sortable" onclick="sortTable(15)">Podiumrate</th>
+                <th class="sortable" onclick="sortTable(16)">Pole Position Rate</th>
+                <th class="sortable" onclick="sortTable(17)">Fastest Lap Rate</th>
+                <th class="sortable" onclick="sortTable(18)">Sum Elo Gain</th>
+                <th class="sortable" onclick="sortTable(19)">Sum SR Gain</th>
+                <th class="sortable" onclick="sortTable(20)">Sum IPs</th>
+                <th class="sortable" onclick="sortTable(21)">IP per Race</th>
+                <th class="sortable" onclick="sortTable(22)">Average SOF</th>
+                <th class="sortable" onclick="sortTable(23)">Q to R</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="data : ${csvData}">
+                <td th:attr="data-redirect=|?vorname=${data.vorname}|" th:text="${data.vorname}"></td>
+                <td th:attr="data-redirect=|?nachname=${data.nachname}|" th:text="${data.nachname}"></td>
+                <td th:attr="data-redirect=|?user_id=${data.user_id}|" th:text="${data.user_id}"></td>
+                <td th:text="${data.Races}"></td>
+                <td th:text="${data.Wins}"></td>
+                <td th:text="${data.Podiums}"></td>
+                <td th:text="${data.Pole_Positions}"></td>
+                <td th:text="${data.Fastest_Laps}"></td>
+                <td th:text="${data.Top5s}"></td>
+                <td th:text="${data.Top10s}"></td>
+                <td th:text="${data.Avg_Finishing}"></td>
+                <td th:text="${data.Avg_Qualifying}"></td>
+                <td th:text="${data.Points}"></td>
+                <td th:text="${data.Points_per_Race}"></td>
+                <td th:text="${data.Winrate}"></td>
+                <td th:text="${data.Podiumrate}"></td>
+                <td th:text="${data.Pole_Position_Rate}"></td>
+                <td th:text="${data.Fastest_Lap_Rate}"></td>
+                <td th:text="${data.Sum_Elo_Gain}"></td>
+                <td th:text="${data.Sum_SR_Gain}"></td>
+                <td th:text="${data.Sum_IPs}"></td>
+                <td th:text="${data.IP_per_Race}"></td>
+                <td th:text="${data.average_SOF}"></td>
+                <td th:text="${data.Q_to_R}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <script src="/script.js"></script>
 </body>
