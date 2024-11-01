@@ -14,6 +14,7 @@ public class CSVRecordModel {
     private double Avg_Finishing;
     private double Avg_Qualifying;
     private double Points;
+    private double Points_10_race;
     private double Points_per_Race;
     private double Winrate;
     private double Podiumrate;
@@ -227,4 +228,11 @@ public class CSVRecordModel {
         return (double) tmp / factor;
     }
 
+    public double getPoints_10_race() {
+        return Points_10_race;
+    }
+
+    public void setPoints_10_race(double points_10_race) {
+        Points_10_race = points_10_race;
+    }
 }
