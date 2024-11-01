@@ -6,7 +6,6 @@ body {
     color: white;
     display: flex;
     justify-content: center; /* Centers child elements horizontally */
-    align-items: center; /* Centers child elements vertically */
     min-height: 100vh; /* Makes sure body takes up at least the full viewport height */
 }
 
