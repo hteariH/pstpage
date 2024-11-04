@@ -1,8 +1,12 @@
 package com.mamoru.pstpage;
 
-import org.apache.commons.csv.*;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.InputStreamReader;
@@ -17,7 +21,7 @@ import java.util.stream.Collectors;
 public class CSVDataController {
 
     private final String url ="https://gitlab.com/pst-pepega/pst-scripts/-/raw/main/LFM_Proseries_Data/lfm_proseries_data.csv";
-    private final String urlSeason ="https://gitlab.com/pst-pepega/pst-scripts/-/raw/main/lfm_proseries_data/lfm_proseries_data_pro-series-s16.csv";
+    private final String urlSeason ="https://gitlab.com/pst-pepega/pst-scripts/-/raw/main/lfm_proseries_data/lfm_proseries_data_current_season.csv";
     private final String urlSeasonF ="https://gitlab.com/pst-pepega/pst-scripts/-/raw/main/lfm_proseries_data/lfm_proseries_data_pro-series-s%s.csv";
 
     @GetMapping("/")
