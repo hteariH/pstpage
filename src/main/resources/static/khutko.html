@@ -10,13 +10,13 @@
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
             margin: 20px;
-            background-color: #f0f2f5;
-            color: #333;
+            background-color: #2f3136; /* Discord dark background */
+            color: #dcddde; /* Discord text color */
         }
 
         h1 {
             text-align: center;
-            color: #4CAF50;
+            color: #7289da; /* Discord primary color */
         }
 
         /* Loading Indicator */
@@ -24,31 +24,30 @@
             text-align: center;
             margin: 20px;
             font-size: 1.2em;
-            color: #666;
+            color: #dcddde;
         }
 
         /* Error Message */
         .error {
             text-align: center;
-            color: red;
+            color: #ff4757; /* Discord error color */
             font-weight: bold;
         }
 
         /* Card Layout */
         .card {
-            background: #fff;
-            border: 1px solid #ddd;
+            background: #36393f; /* Dark card background */
+            border: 1px solid #40444b; /* Slightly lighter border */
             border-radius: 8px;
             margin: 10px auto;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 1200px; /* Increased from 800px to 1200px */
+            max-width: 1200px; /* Wider card */
             overflow: hidden;
             transition: all 0.3s ease;
         }
 
-
         .card-header {
-            background-color: #4CAF50;
+            background-color: #7289da; /* Discord primary color for header */
             color: white;
             padding: 10px;
             cursor: pointer;
@@ -68,7 +67,7 @@
         }
 
         .card-content table, .card-content th, .card-content td {
-            border: 1px solid #ddd;
+            border: 1px solid #40444b; /* Light border */
         }
 
         .card-content th, .card-content td {
@@ -77,7 +76,19 @@
         }
 
         .card-content th {
-            background-color: #f4f4f4;
+            background-color: #2f3136; /* Dark background for header cells */
+        }
+
+        .card-content tr:nth-child(even) {
+            background-color: #36393f; /* Dark background for even rows */
+        }
+
+        .card-content tr:nth-child(odd) {
+            background-color: #40444b; /* Darker background for odd rows */
+        }
+
+        .card-header:hover {
+            background-color: #5e73d1; /* Lighter hover effect for header */
         }
     </style>
 </head>
