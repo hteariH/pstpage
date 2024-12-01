@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khutko FBS pre-qualification</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        /* Loading Indicator */
+        .loading {
+            text-align: center;
+            margin: 20px;
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        /* Error Message */
+        .error {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Card Layout */
+        .card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 10px auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 1200px; /* Increased from 800px to 1200px */
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+
+        .card-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            user-select: none;
+            font-size: 1.2em;
+        }
+
+        .card-content {
+            padding: 15px;
+            display: none; /* Start hidden */
+        }
+
+        .card-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .card-content table, .card-content th, .card-content td {
+            border: 1px solid #ddd;
+        }
+
+        .card-content th, .card-content td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .card-content th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+<h1>Khutko FBS pre-qualification</h1>
+<div id="content" class="loading">Loading data...</div>
+
+<script>
+    async function fetchData() {
+        const endpoint = 'https://acc-prequal-backend.fly.dev/event/list';
+        const contentDiv = document.getElementById('content');
+        try {
+            const response = await fetch(endpoint);
+            if (!response.ok) throw new Error('Failed to fetch data');
+            const data = await response.json();
+            renderData(data);
+        } catch (error) {
+            contentDiv.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+        }
+    }
+
+    function formatTime(ms) {
+        const minutes = Math.floor(ms / 60000);
+        const seconds = Math.floor((ms % 60000) / 1000);
+        const milliseconds = ms % 1000;
+        return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
+    }
+
+    function renderData(data) {
+        const container = document.getElementById('content');
+        container.innerHTML = ''; // Clear loading message
+
+        data.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            card.innerHTML = `
+                    <div class="card-header" data-index="${index}">${item.name}</div>
+                    <div class="card-content">
+                        <p><strong>ID:</strong> ${item.id}</p>
+                        <p><strong>Best Average:</strong> ${formatTime(item.bestAverage)}</p>
+                        <p><strong>Best Lap:</strong> ${formatTime(item.bestLap)}</p>
+                        <p><strong>Registered:</strong> ${item.registered}</p>
+                        <h3>Attempts:</h3>
+                        ${renderAttempts(item.attempts)}
+                    </div>
+                `;
+            container.appendChild(card);
+        });
+
+        addCardToggleBehavior();
+    }
+
+    function renderAttempts(attempts) {
+        return attempts.map(attempt => `
+                <div>
+                    <p><strong>Player:</strong> ${attempt.playerName}</p>
+                    <p><strong>Car Model:</strong> ${attempt.carModel}</p>
+                    <h4>Laps:</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>S1</th>
+                                <th>S2</th>
+                                <th>S3</th>
+                                <th>In Lap</th>
+                                <th>Has Cut</th>
+                                <th>Out Lap</th>
+                                <th>Car Model</th>
+                                <th>Lap Time</th>
+                                <th>Player Name</th>
+                                <th>Race Number</th>
+                                <th>Session Over</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${attempt.laps.map(lap => `
+                                <tr>
+                                    <td>${lap.s1}</td>
+                                    <td>${lap.s2}</td>
+                                    <td>${lap.s3}</td>
+                                    <td>${lap.inLap}</td>
+                                    <td>${lap.hasCut}</td>
+                                    <td>${lap.outLap}</td>
+                                    <td>${lap.carModel}</td>
+                                    <td>${formatTime(lap.lapTimeMS)}</td>
+                                    <td>${lap.playerName}</td>
+                                    <td>${lap.raceNumber}</td>
+                                    <td>${lap.sessionOver}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `).join('');
+    }
+
+    function addCardToggleBehavior() {
+        const headers = document.querySelectorAll('.card-header');
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                } else {
+                    content.style.display = 'block';
+                }
+            });
+        });
+    }
+
+    // Fetch data on page load
+    document.addEventListener('DOMContentLoaded', fetchData);
+</script>
+</body>
+</html>
