@@ -128,7 +128,6 @@
             card.innerHTML = `
                     <div class="card-header" data-index="${index}">${item.name}</div>
                     <div class="card-content">
-                        <p><strong>ID:</strong> ${item.id}</p>
                         <p><strong>Best Average:</strong> ${formatTime(item.bestAverage)}</p>
                         <p><strong>Best Lap:</strong> ${formatTime(item.bestLap)}</p>
                         <p><strong>Registered:</strong> ${item.registered}</p>
@@ -145,9 +144,6 @@
     function renderAttempts(attempts) {
         return attempts.map(attempt => `
                 <div>
-                    <p><strong>Player:</strong> ${attempt.playerName}</p>
-                    <p><strong>Car Model:</strong> ${attempt.carModel}</p>
-                    <h4>Laps:</h4>
                     <table>
                         <thead>
                             <tr>
